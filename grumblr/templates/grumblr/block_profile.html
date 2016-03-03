@@ -1,0 +1,19 @@
+<!doctype html>
+{% extends "grumblr/base_profile.html" %}
+{% block information %}
+	<p class="text-center" style="color:red;">
+        <span class="glyphicon glyphicon-map-marker"></span> Privacy 
+        <span class="splitter">| </span>
+        <span class="glyphicon glyphicon-user"></span> Privacy
+    </p>
+{% endblock %}
+{% block content %}
+<div id="leftcontent" class="col-md-10 col-md-offset-1">
+	<div class="alert alert-danger alert-dismissible grumblr-box" role="alert">               
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <span> You've been blocked by this user. The information about the user is invisible for you. </span>
+	</div>
+</div>
+{% endblock %}

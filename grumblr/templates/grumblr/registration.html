@@ -1,0 +1,27 @@
+<!doctype html>
+{% extends "grumblr/base_login.html" %}
+{% block content %}
+<div id="form">
+    <form enctype="multipart/form-data" method="post" action="{% url 'registration' %}">
+        {% for field in RegisterForm.visible_fields %}
+        <div class="form-group">
+        	<label class="control-label">{{ field.field.widget.attrs.label }}</label>
+            <input type="{{ field.field.widget.input_type }}" class="form-control" placeholder="{{ field.field.widget.attrs.placeholder}}" name="{{ field.name }}">
+            {% for error in field.errors %}
+            	<p class="errors"> {{ error }}</p>
+            {% endfor %} 
+        </div>   
+        {% endfor %}  
+        {% for error in RegisterForm.non_field_errors %}
+            <p class="errors"> {{ error }}</p>
+        {% endfor %} 
+
+        <button type="submit" class="btn btn-primary active center-block">Submit</button>   
+        {% csrf_token %}  
+</form>
+ 
+</div>
+<div class="text-right">Have an account? <a href="{% url 'login' %}">Log in &raquo;</a></div> 
+{% endblock %}
+        
+

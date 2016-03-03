@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>login</title>
+    <!-- CSS from Bootstrap -->
+    <link href="{% static 'grumblr/css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- CSS from designer -->
+    <link rel="stylesheet" href="{% static 'grumblr/css/login.css'%}">
+</head>
+<body>
+    <div class="row">
+        <div id="wrapper" class="col-md-6 col-md-offset-3 text-center">
+        	<img src="{% static 'grumblr/images/logo.png'%}" alt="logo">
+            <br>
+            <br>               
+        </div>
+        <div id="wrapper2" class="col-md-4 col-md-offset-4 text-center">
+           	{% block content %}{% endblock %}
+        </div>
+    </div>    
+    <!-- Bootstrap core JavaScript (used for button dropdown)-->
+    <script src="{% static 'grumblr/css/bootstrap/js/jquery.min.js'%}"></script>
+    <script src="{% static 'grumblr/css/bootstrap/js/bootstrap.min.js'%}"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+{% extends "grumblr/base_stream.html" %}
+{% block sidebar1 %}
+    <div class="friends-list">     	
+        <table class="table table-hover text-center">
+            <caption class="text-center"><strong>Unfollowing Friends</strong></caption>
+            {% for unfollow in Unfollows %}
+                <tr>
+                    <td><img src="{% url 'avatar' unfollow.id %}" class="img-circle friends-photo" alt="friends-list"></td>
+                    <td><a href="{% url 'profile' unfollow.id %}">{{ unfollow.username }}</a></td>
+               </tr>
+            {% endfor %}
+        </table>
+    </div><!--/friend-list-->
+{% endblock %}
+
+{% block sidebar2 %}
+<div class="line"></div>
+    <div class="friends-list">     	
+        <table class="table table-hover text-center">
+            <caption class="text-center"><strong>Blocked Friends</strong></caption>
+            {% for block in Blocks %}
+            <tr>
+                <td><img src="{% url 'avatar' block.id %}" class="img-circle friends-photo" alt="friends-list"></td>
+                <td><a href="{% url 'profile' block.id %}">{{ block.username }}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div><!--/friend-list-->
+{% endblock %}

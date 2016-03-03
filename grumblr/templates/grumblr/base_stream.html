@@ -1,0 +1,144 @@
+<!doctype html>
+{% extends "grumblr/base.html" %}
+{% load staticfiles %}
+{% block css %}<link rel="stylesheet" href="{% static 'grumblr/css/stream.css'%}">{% endblock %}
+{% block see_my_Profile %}<a href="{% url 'profile' user.id %}">View Profile</a>{% endblock %}   
+{% block search_or_welcome %}
+    <form method="post" action="{% url 'search' %}" class="navbar-form navbar-right">
+        {% for field in SearchUserForm.visible_fields %}
+        <div class="form-group">
+            <input type="{{ field.field.widget.input_type }}" class="form-control" placeholder="{{ field.field.widget.attrs.placeholder}}" name="{{ field.name }}">
+        </div>   
+        {% endfor %}
+        {% if isFollow == "True" %}
+        	<input type="hidden" name="marker" value="follower">
+        {% endif %}
+        <button type="submit" class="btn btn-default">Search</button>  
+        {% csrf_token %}       
+    </form> 
+{% endblock %}
+<!--Main Content-->
+{% block content %}
+	<!--Left Content-->
+    <div id="leftcontent" class="col-md-7 col-md-offset-1">
+    	<!--post-board-->
+        <div id="post-board">
+            <p id="prompt"><strong>Post a new Grumblr</strong></p>
+            <p id="less" class="text-right"><small>#Limited 42 characters#</small></p>    
+            <form enctype="multipart/form-data" action="{% url 'add' %}" method="post">
+                <textarea class="form-control" id="text" name="text" placeholder="What's on your mind?"></textarea>
+                <ul class="nav nav-pills">
+                    <li role="presentation">
+                        <input type="file" name="img" id="upload_picture" style="display:none;">
+                            <a href="" onclick="document.getElementById('upload_picture').click();return false;">
+                                <span class="glyphicon glyphicon-picture"></span>
+                            </a>
+                     </li>
+                </ul>
+                {% if isFollow == "True" %}
+            		<input type="hidden" name="marker" value="follower">
+                {% endif %}
+                <button id="post-btn" type="submit" class="btn btn-danger pull-right">Post</button>               
+                {% csrf_token %}  
+                {% if PostForm.text.errors %}
+                	<div id="error" class="alert alert-danger alert-dismissible" role="alert">               
+                    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        	<span aria-hidden="true">&times;</span>
+                    	</button>
+                    	{{PostForm.text.errors}}
+                	</div>
+            	{% endif %}
+            </form>
+            {% for error in errors %}
+                <div class="alert alert-danger alert-dismissible error" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Error!  </strong> {{error}}
+                </div>
+            {% endfor %}
+         </div><!--/post-board-->
+         <!--stream-list-->
+     	 <div id="stream-list">
+        {% if SearchUserForm.search_name.errors %}
+            <div class="alert alert-danger alert-dismissible grumblr-box" role="alert">          
+            	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                	<span aria-hidden="true">&times;</span>
+            	</button>
+            	{{SearchUserForm.search_name.label}}{{SearchUserForm.search_name.errors}}
+            </div>
+        {% endif %}
+        {% if searched != null %}
+            <div class="grumblr-box">
+                <div class="grumblr">
+                    <img src="{% url 'avatar' searched.id %}" class="img-circle user-picture" alt="photo">
+                    <a href="{% url 'profile' searched.id %}">{{searched.username}}</a>
+                </div>
+            </div>
+        {% endif %}
+        {% for message in messages %}
+            <div class="grumblr-box" id="grumblr-box">
+                <div class="grumblr" id="grumblr{{ message.id }}">
+                    <img src="{% url 'avatar' message.user.id %}" class="img-circle user-picture" alt="photo">
+                    <a href="{% url 'profile' message.user.id %}">{{message.user.username}}</a>
+                </div>
+                <div class="post-time text-right">
+                    <h6><span class="glyphicon glyphicon-time"></span> {{message.timestamp}}</h6>
+                </div>
+                <p class="post-text">{{message.text}}</p>
+                {% if message.img %}
+                    <img src="{% url 'upload_picture' message.id %}" class="img-thumbnail post-picture center-block" alt="photo">
+                {% endif %}
+                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default commentBtn" data="{{ message.id }}">
+                            <small><span class="glyphicon glyphicon-pencil" id="bar{{ message.id }}"> Comment</span></small>
+                        </button>
+                    </div>
+                </div>
+                <div class="comment-box" style="display:none;" id="commentBox{{ message.id }}">
+                    <div align="center" id="errors{{ message.id }}">
+                        {% for error in errors %}
+                            <li><p class="error" style="color: red">{{error}}</p></li>
+                        {% endfor %}
+                    </div>
+                    <form class="comment-form" id="form{{ message.id }}" action="{% url 'comment' message.id %}" method="post">
+                        <input type="hidden" name="id" value="{{message.id}}">
+                            <input type="text" id="text{{ message.id }}" class="form-control" placeholder="Type Your comment" name="text">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-info pull-right submitBtn btn-xs" value="{{ message.id }}">Comment</button>
+                    </form>
+                    <div class="comment">
+                        <ol class="list-unstyled" id="comment{{message.id}}">
+                        </ol>
+                    </div><br>
+                </div>
+		    </div>
+		{% endfor %} 
+    	<div><br><br></div>
+    	</div><!--stream-list-->
+    </div><!--left content-->         
+    <!--right content-->
+    <div id="rightcontent" class="col-md-3">
+        <div id="sidebar">
+        {% block sidebar1 %}{% endblock %}
+        {% block sidebar2 %}{% endblock %}
+        <div class="line"></div>
+        {% block sidebar3 %}
+        <div id="hot-picture">  
+        <div class="text-center"><strong>Photos and videos</strong></div><br>  	
+            <div id="picture-table" >
+                {% for message in messages %}
+                    {% if message.img %}
+                        <img src="{% url 'upload_picture' message.id %}" class="img-thumbnail picture-lib" alt="photos">
+                    {% endif %}
+                {% endfor %}
+        	</div><br>
+        </div><!--/Hot picture -->
+    {% endblock %}
+    <br>
+    </div><!--/sidebar-->
+    </div><!--/right content-->
+{% endblock %}
+    
+    

@@ -1,0 +1,36 @@
+<!doctype html>
+{% extends "grumblr/base_login.html" %}
+{% block content %}
+<div id="form">
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter Password">
+        </div>      
+        <div class="form-group">
+            <span class="separator pull-right">&middot;
+                <a class="forgot" href="{% url 'send_email' %}">Forgot password?</a>
+            </span>
+        </div>
+        {% csrf_token %}
+        <br><br>
+        <button type="submit" class="btn btn-primary active center-block">Log in</button>          
+    </form>      
+</div><!--login-form-->
+<div class="text-right">Don't have an account? 
+    <a href="{% url 'registration' %}">Sign up &raquo;</a>
+</div> 
+<!--Display errors in alert-->
+{% if form.errors %}
+	<br>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span></button>
+    <strong>Error!</strong> Incorrect user name and password.   Please try again...
+    </div>
+{% endif %}
+{% endblock %}

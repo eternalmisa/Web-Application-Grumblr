@@ -1,0 +1,16 @@
+<!doctype html>
+{% extends "grumblr/base_stream.html" %}
+{% block sidebar1 %}
+    <div class="friends-list">     	
+        <table class="table table-hover text-center">
+            <caption class="text-center"><strong>Following Friends</strong></caption>
+            {% for follow_user in Follows %}
+            	<tr>
+                    <td><img src="{% url 'avatar' follow_user.id %}" class="img-circle friends-photo" alt="friends-list"></td>
+                    <td><a href="{% url 'profile' follow_user.id %}">{{ follow_user.username }}</a></td>
+                </tr>
+        	{% endfor %}
+        </table>
+    </div><!--/friend-list-->
+{% endblock %}
+{% block sidebar2 %}{% endblock %}

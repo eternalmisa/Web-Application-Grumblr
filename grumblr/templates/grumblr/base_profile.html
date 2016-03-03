@@ -1,0 +1,107 @@
+<!doctype html>
+{% extends "grumblr/base.html" %}
+{% load staticfiles %}
+{% block css %}<link rel="stylesheet" href="{% static 'grumblr/css/profile.css'%}">{% endblock %}
+{% block see_my_Profile %}<a href="{% url 'profile' user.id %}">View Profile</a>{% endblock %}
+{% block search_or_welcome %}
+    <div class="navbar-form navbar-right">
+        <p id="welcome"><strong>Welcome back!<a href="{% url 'profile' user.id %}">  {{user.username}}</a></strong></p>
+    </div>
+{% endblock %}
+{% block post_or_information %} 
+    <div id="wrapper" class="col-md-10 col-md-offset-1">
+        <div id="profile">  
+            <img id="user-photo" src="{% url 'avatar' post_user.id %}" class="img-circle center-block" alt="photo">
+            <p class="text-center"><strong>{{post_user.username}}</strong></p>
+            {% block information %}
+                <p class="text-center">
+                    <span class="glyphicon glyphicon-map-marker"></span> {{ UserInformationForm.location.value}}
+                    <span class="splitter">| </span>
+                    <span class="glyphicon glyphicon-user"></span> {{ UserInformationForm.gender.value}}
+                </p>
+            {% endblock %}
+            {% block follower %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <!--Left-->
+    <div id="leftcontent" class="col-md-3 col-md-offset-1">
+        <div id="sidebar">
+ 			<div class="line"></div>      
+            <div id="personal-info">     	
+                <table class="table table-striped">
+                    <caption class="text-center"><strong>Personal Information</strong></caption>
+                    <tr>
+                        <td><span class="glyphicon glyphicon-user"><small> Name</small></span></td>
+                        <td><small><strong>{{post_user.first_name}} {{post_user.last_name}}</strong></small></td>
+                    </tr>
+                    <tr>
+                        <td><span class="glyphicon glyphicon-envelope"><small> E-mail</small></span></td>
+                        <td><small><strong>{{post_user.email}}</strong></small></td>
+                    </tr>
+                    {% for field in UserInformationForm.visible_fields %}
+                        {% if field.name == "age" or field.name == "school" or field.name == "phoneNum" or field.name == "short_bio" %}
+                        <tr>
+                        	<td><span class="{{ field.field.widget.attrs.pic }}"><small> {{ field.field.widget.attrs.label }}</small></span></td>  
+                        	<td><small><strong>{{field.value}}</strong></small></td></tr>
+                       {%endif %}
+                    {% endfor %} 
+                </table>
+            </div>
+            <div class="line"></div>
+            <div id="hot-picture"> 
+                <div id="picture-table" style="padding-top:10px;" >
+                    <div class="text-center"><strong>Photos and videos</strong></div><br>  	
+                    {% for message in messages %}
+                        {% if message.img %}
+                            <img src="{% url 'upload_picture' message.id %}" class="img-thumbnail picture-lib" alt="photos">
+                        {% endif %}
+                    {% endfor %}
+                </div><br>  
+            </div><!--hot-picture--><br><div class="line" style="margin-top:20px;"></div>
+        </div>
+    </div><!--/left content-->
+    <!--Right content-->
+    <div id="rightcontent" class="col-md-7">
+        <div id="stream-list">    
+            {% block stream %}
+            {% for message in messages %}
+            	<!--One grumblr--> 
+                <div class="grumblr-box">
+                    <div class="grumblr" id="grumblr{{ message.id }}">
+                        <img src="{% url 'avatar' message.user.id %}" class="img-circle user-picture" alt="photo">
+                        <a href="#">{{message.user.username}}</a>
+                    </div>
+                    <div class="post-time text-right">
+                        <h6><span class="glyphicon glyphicon-time"></span> {{message.timestamp}}</h6>
+                    </div>
+                    <p class="post-text">{{message.text}}</p>
+                    {% if message.img %}
+                        <img src="{% url 'upload_picture' message.id %}" class="img-thumbnail post-picture center-block" alt="photo">
+                    {% endif %}
+                    {% block button_group %}{% endblock %}
+                    <div class="comment-box" style="display:none;" id="commentBox{{ message.id }}">
+                    <div align="center" id="errors{{ message.id }}">
+                        {% for error in errors %}
+                            <li><p class="error" style="color: red">{{error}}</p></li>
+                        {% endfor %}
+                    </div>
+                    <form class="comment-form" id="form{{ message.id }}" action="{% url 'comment' message.id %}" method="post">
+                        <input type="hidden" name="id" value="{{message.id}}">
+                            <input type="text" id="text{{ message.id }}" class="form-control" placeholder="Type Your comment" name="text">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-info pull-right submitBtn btn-xs" value="{{ message.id }}">Comment</button>
+                    </form>
+                    <div class="comment">
+                        <ol class="list-unstyled" id="comment{{message.id}}">
+                        </ol>
+                    </div><br>
+                </div>
+                </div><!--/One grumblr-->
+            {% endfor %}
+            {% endblock %}
+            <div><br><br></div>  
+        </div><!--/stream-list-->
+    </div><!--/rightcontent-->
+{% endblock %}

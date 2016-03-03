@@ -1,0 +1,40 @@
+<!doctype html>
+{% extends "grumblr/base_edit.html" %}
+{% block form %}
+	<form enctype="multipart/form-data" method="post" action="{% url 'edit' %}">
+        {% for field in EditUserForm.visible_fields %}
+        <label class="control-label">{{ field.field.widget.attrs.label }}</label>
+        <div class="form-group">	
+            {{ field }}
+            {% for error in field.errors %}
+            	<p style="color: red; text-align:right"> {{ error }}</p>
+            {% endfor %} 
+            {% if UserNameError %}
+            	<p style="color: red; text-align:right"> {{ UserNameError }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% for field in EditInformationForm.visible_fields %}
+        <label class="control-label">{{ field.field.widget.attrs.label }}</label>
+        <div class="form-group">
+            {{ field }}
+            {% for error in field.errors %}
+            	<p style="color: red; text-align:right"> {{ error }}</p>
+            {% endfor %} 
+            {% if field.name == "gender" and GenderError%}
+                <p style="color: red; text-align:right"> {{ GenderError }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary active center-block">Update</button>  
+        {% csrf_token %}       
+    </form>
+    {% if success %}
+        <div class="alert alert-success alert-dismissible error" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Success!  </strong> {{success}}
+        </div>
+	{% endif %} 
+{% endblock %}

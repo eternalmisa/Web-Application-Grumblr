@@ -1,0 +1,33 @@
+<!doctype html>
+{% extends "grumblr/base.html" %}
+{% load staticfiles %}
+{% block css %}<link rel="stylesheet" href="{% static 'grumblr/css/edit.css'%}">{% endblock %}
+{% block see_my_Profile %}<a href="{% url 'profile' user.id %}">View Profile</a>{% endblock %}
+{% block search_or_welcome %}
+    <div class="navbar-form navbar-right">
+       <p id="welcome"><strong>Welcome back! <a href="{% url 'profile' user.id %}">{{user.username}}</a></strong></p>
+    </div>
+{% endblock %}
+{% block post_or_information %} 
+    <div class="col-md-6 col-md-offset-3 wrapper">
+        <div id="profile">  
+            <img id="user-photo" src="{% url 'avatar' user.id %}" class="img-circle center-block" alt="photo">
+            <p class="text-center name"><strong>{{user.username}}</strong></p>
+            <p class="text-center name"><span class="glyphicon glyphicon-map-marker"></span> {{userInfo.location}}
+                <span class="splitter">| </span><span class="glyphicon glyphicon-user"></span> {{userInfo.gender}}
+            </p>
+        </div>
+      </div>
+{% endblock %}
+{% block content %} 
+	<div class="row">
+        <div class="col-md-6 col-md-offset-3 wrapper">
+            <div id="edit">
+                <div id="form">
+                    {% block form %}{% endblock %} 
+                </div>
+            </div>
+        </div>
+    </div> 
+{% endblock %}
+
