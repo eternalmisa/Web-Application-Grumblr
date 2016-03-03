@@ -1,0 +1,44 @@
+#welcome {
+	padding-right:10px;
+	padding-top:10px;
+	color:black;
+}
+.wrapper {
+	padding-top:20px;
+}
+#profile {
+	position: relative;
+	color: #004986;
+	margin-top: 10px;
+	background-image: url("../images/img1.jpg");
+	text-align: left;
+	padding: 20px 20px 20px;
+	height:200px;
+}
+.name {
+	color:white;
+}
+#user-photo {
+	height:100px;
+	width:100px;
+}
+#edit {
+	margin-top:20px;
+	position:relative;
+	background-color:#fff9e1;
+	border-radius:10px;
+	box-shadow:2px 2px 4px #BEBCBC;
+	height:auto;
+}
+#form {
+	position: relative;
+	color: #004986;
+	margin-top: 10px;
+	text-align: left;
+	padding: 40px 40px 40px;
+	height:auto;
+}
+.errors {
+	color:red;
+	text-align: right;
+}

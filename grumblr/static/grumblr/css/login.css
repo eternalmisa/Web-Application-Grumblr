@@ -1,0 +1,20 @@
+@charset "UTF-8";
+/* CSS Document for login.html/registration.html */
+body {
+	background-image: url("../images/background.jpg");
+}
+#wrapper {
+	padding-top: 100px;
+}
+#form {
+	position: relative;
+	color: #004986;
+	margin-top: 10px;
+	text-align: left;
+	padding: 10px 10px 10px;
+}
+.errors {
+	color:red;
+	position: relative;
+	text-align: right;
+}

@@ -1,0 +1,126 @@
+@charset "UTF-8";
+/* CSS Document for profile.html*/ 
+#welcome {
+	padding-right:10px;
+	padding-top:10px;
+	color:black;
+}
+/* User Information */
+#wrapper {
+	padding-top:20px;
+}
+#profile {
+	position: relative;
+	color: #004986;
+	margin-top: 10px;
+	background-image: url("../images/img1.jpg");
+	text-align: left;
+	padding: 20px 20px 20px;
+	height:205px;
+}
+#user-photo {
+	height:100px;
+	width:100px;
+}
+p {
+	color:white;
+}
+/* Main Content */
+/* Left */
+#leftcontent {
+	height:100%;
+	padding-top:20px;
+}
+#sidebar {
+	position:relative;
+	background-color:#fff9e1;
+	border-radius:10px;
+	box-shadow:2px 2px 4px #BEBCBC;
+	height:100%;
+}
+#personal-info {
+	position:relative;
+	margin:auto;
+	width:95%;
+	background-color:white;
+	margin-top:20px;
+	border-radius:5px;
+	box-shadow:2px 2px 4px #BEBCBC;
+}
+.line {
+	width:100%;
+	height:1px;
+	margin:0px auto;
+	padding:0px;
+	background-color:#D5D5D5;
+	overflow:hidden;
+}
+#hot-picture {
+	position:relative;
+	left:15px;
+	right:15px;
+	width:90%;
+	height:auto;
+	background-color:white;
+	margin-top:20px;
+	border-radius:5px;
+	box-shadow:2px 2px 4px #BEBCBC;
+}
+#picture-table {
+	position:relative;
+	left:10%;
+	right:10%;
+	width:80%;
+}
+.picture-lib {
+	width:100px;
+	height:100px;
+}
+/* Right */
+#rightcontent {
+	height:100%;
+	padding-top:10px;
+}
+#stream-list {
+	position:relative;
+	background-color:#fff9e1;
+	border-radius:10px;
+	box-shadow:2px 2px 4px #BEBCBC;
+	height:100%;
+}
+.grumblr-box {
+	position:relative;
+	top:15px;
+	left:15px;
+	width:95%;
+	margin-top:20px;
+	background-image: url("../images/back.jpg");
+	border-radius:5px;
+	box-shadow:2px 2px 4px #BEBCBC;
+}
+.grumblr {
+	margin-left:-10px;
+	margin-top:-10px;
+}
+.user-picture { 
+	width:50px;
+	height:50px;
+}
+.post-time {
+	margin-top:-40px;
+}
+.post-text {
+	color:black;
+	margin-left:30px;
+	margin-right:20px;
+}
+.post-picture {
+	width:200px;
+	height:150px;
+}
+.btn-group {
+	padding-top:5px;	
+}
+.btn-default {
+	background-image: url("../images/back.jpg");
+}

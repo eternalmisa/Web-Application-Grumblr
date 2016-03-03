@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/* CSS Document for global_stream.html */
+body {
+	padding-top:50px;
+	background-color:#c0e4eb;
+}
+/* Navigation bar */
+#bar {
+	background-image: url("../images/background.jpg");
+	
+}
+#medium {
+	padding-top:10px;
+}
+.comment-box {
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.submitBtn {
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.small-picture {
+	width:30px;
+	height:30px;
+}
+.small-line {
+	width:100%;
+	height:1px;
+	background-color:#D5D5D5;
+	overflow:hidden;
+	margin-top:3px;
+}
